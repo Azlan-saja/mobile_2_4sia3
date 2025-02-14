@@ -22,10 +22,13 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white,
           elevation: 0,
         ),
+        drawerTheme: const DrawerThemeData(
+          elevation: 10,
+        ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.deepPurple.shade400,
+          backgroundColor: Colors.deepPurple.shade900,
           unselectedItemColor: Colors.white,
-          selectedItemColor: Colors.deepPurple.shade900,
+          selectedItemColor: Colors.deepPurple.shade300,
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
           elevation: 0,
         ),
