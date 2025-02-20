@@ -14,25 +14,30 @@ class MyApp extends StatelessWidget {
       title: 'Mobile 2',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        fontFamily: 'Quicksand',
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.deepPurple.shade900,
-          foregroundColor: Colors.white,
-          elevation: 0,
-        ),
-        drawerTheme: const DrawerThemeData(
-          elevation: 10,
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.deepPurple.shade900,
-          unselectedItemColor: Colors.white,
-          selectedItemColor: Colors.deepPurple.shade300,
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-          elevation: 0,
-        ),
-      ),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+          fontFamily: 'Quicksand',
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.deepPurple.shade900,
+            foregroundColor: Colors.white,
+            elevation: 0,
+          ),
+          drawerTheme: const DrawerThemeData(
+            elevation: 10,
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.deepPurple.shade900,
+            unselectedItemColor: Colors.white,
+            selectedItemColor: Colors.deepPurple.shade300,
+            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+            elevation: 0,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.deepPurple.shade800,
+              foregroundColor: Colors.white,
+            ),
+          )),
       home: const Dashboard(),
     );
   }
