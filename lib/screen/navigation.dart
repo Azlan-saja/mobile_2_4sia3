@@ -49,6 +49,7 @@ class Navigation extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               margin: const EdgeInsets.only(),
               child: TextFormField(
+                readOnly: true,
                 controller: terimaData,
                 maxLength: 20,
                 decoration: const InputDecoration(
@@ -59,11 +60,30 @@ class Navigation extends StatelessWidget {
                   suffixIcon: Icon(
                     Icons.check,
                   ),
-                  enabledBorder: OutlineInputBorder(
+                  border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(50))),
                   helperText: "Datanya apa ya?",
                 ),
-                onChanged: (value) {},
+              ),
+            ),
+            const Divider(),
+            Container(
+              padding: const EdgeInsets.all(12),
+              margin: const EdgeInsets.only(),
+              child: TextFormField(
+                maxLength: 2,
+                decoration: const InputDecoration(
+                  labelText: 'Kirim Data ',
+                  labelStyle: TextStyle(
+                    color: Colors.blueGrey,
+                  ),
+                  suffixIcon: Icon(
+                    Icons.check,
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50))),
+                  helperText: "Silahkan input nilai data yang dikirim!",
+                ),
               ),
             ),
             ElevatedButton(
@@ -75,7 +95,7 @@ class Navigation extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Navigation 3'),
+              child: const Text('Kirim & Terima Data'),
             ),
           ],
         ),

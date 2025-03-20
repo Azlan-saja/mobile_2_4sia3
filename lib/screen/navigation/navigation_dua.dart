@@ -12,7 +12,7 @@ class NavigationDua extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pop(context, 'Sabrek kawan');
+            Navigator.pop(context, 'Yeyey yayaya');
           },
           child: const Text('Selesai'),
         ),
