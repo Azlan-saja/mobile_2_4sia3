@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class NavigationTiga extends StatelessWidget {
-  const NavigationTiga({super.key});
+  final int nilai1;
+
+  NavigationTiga({super.key, required this.nilai1});
+
+  final nilai2 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +20,7 @@ class NavigationTiga extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
+                initialValue: nilai1.toString(),
                 readOnly: true,
                 maxLength: 2,
                 decoration: const InputDecoration(
@@ -33,7 +38,8 @@ class NavigationTiga extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               TextFormField(
-                readOnly: true,
+                controller: nilai2,
+                keyboardType: TextInputType.number,
                 maxLength: 2,
                 decoration: const InputDecoration(
                   labelText: 'Nilai 2',
@@ -50,7 +56,10 @@ class NavigationTiga extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  final tambah = nilai1 + int.parse(nilai2.text);
+                  Navigator.pop(context, "$nilai1 + ${nilai2.text} = $tambah");
+                },
                 child: const Text('Hitung & Tutup'),
               ),
             ],
