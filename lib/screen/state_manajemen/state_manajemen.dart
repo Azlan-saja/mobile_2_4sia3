@@ -24,7 +24,7 @@ class _StateManajemenState extends State<StateManajemen> {
                     valueCounter--;
                   });
                 },
-                child: const Text('-1')),
+                child: const Text('-1', style: TextStyle(fontSize: 22))),
             Text('$valueCounter', style: const TextStyle(fontSize: 37)),
             ElevatedButton(
                 onPressed: () {
@@ -32,7 +32,7 @@ class _StateManajemenState extends State<StateManajemen> {
                     valueCounter++;
                   });
                 },
-                child: const Text('+1')),
+                child: const Text('+1', style: TextStyle(fontSize: 22))),
           ],
         ),
       ),
