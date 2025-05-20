@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:master/providers/counter_provider.dart';
+import 'package:provider/provider.dart';
 
 class StateManajemen extends StatefulWidget {
   const StateManajemen({super.key});
@@ -12,6 +14,7 @@ class _StateManajemenState extends State<StateManajemen> {
 
   @override
   Widget build(BuildContext context) {
+    final pv = Provider.of<CounterProvider>(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Layar State Manajemen')),
       body: Center(
@@ -53,11 +56,15 @@ class _StateManajemenState extends State<StateManajemen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      pv.kurangi();
+                    },
                     child: const Text('-1', style: TextStyle(fontSize: 22))),
-                const Text('X', style: TextStyle(fontSize: 37)),
+                Text(pv.hasil, style: const TextStyle(fontSize: 37)),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      pv.tambahin();
+                    },
                     child: const Text('+1', style: TextStyle(fontSize: 22))),
               ],
             ),
