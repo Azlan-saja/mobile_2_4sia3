@@ -1,15 +1,53 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class FileJsonScreen extends StatelessWidget {
-  FileJsonScreen({super.key});
+class FileJsonScreen extends StatefulWidget {
+  const FileJsonScreen({super.key});
 
+  @override
+  State<FileJsonScreen> createState() => _FileJsonScreenState();
+}
+
+class _FileJsonScreenState extends State<FileJsonScreen> {
   final jamController = TextEditingController();
+  final pelajaranController = TextEditingController();
+  List<Map<String, dynamic>> roster = [];
+
+  readRoster() async {
+    final isiFile = await rootBundle.loadString("assets/roster.json");
+    roster = List<Map<String, dynamic>>.from(jsonDecode(isiFile));
+    setState(() {});
+  }
+
+  createRoster() {
+    roster.add({
+      "id": roster.isEmpty ? 1 : roster.last["id"] + 1,
+      "jam": jamController.text,
+      "pelajaran": pelajaranController.text,
+    });
+    setState(() {});
+    jamController.clear();
+    pelajaranController.clear();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Simpan berhasil'),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    readRoster();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Layar File JSON"),
+        title: const Text("Layar Read File JSON"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
@@ -42,6 +80,7 @@ class FileJsonScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextFormField(
+              controller: pelajaranController,
               decoration: const InputDecoration(
                 labelText: 'Mata Pelajaran',
                 border: OutlineInputBorder(
@@ -55,7 +94,11 @@ class FileJsonScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(onPressed: () {}, child: const Text('Simpan')),
+                ElevatedButton(
+                    onPressed: () {
+                      createRoster();
+                    },
+                    child: const Text('Simpan')),
                 ElevatedButton(onPressed: () {}, child: const Text('Batal')),
               ],
             ),
@@ -65,11 +108,10 @@ class FileJsonScreen extends StatelessWidget {
             const SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
-                itemCount: 100,
+                itemCount: roster.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: CircleAvatar(
-                      // backgroundColor: Colors.blue.shade800,
                       backgroundColor:
                           Theme.of(context).appBarTheme.backgroundColor,
                       child: Text(
@@ -80,15 +122,15 @@ class FileJsonScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    title: const Text(
-                      'Azlan',
-                      style: TextStyle(
+                    title: Text(
+                      roster[index]["jam"],
+                      style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     subtitle: Text(
-                      '1019019201',
+                      roster[index]["pelajaran"],
                       style: TextStyle(
                           color: Theme.of(context).appBarTheme.backgroundColor,
                           fontStyle: FontStyle.italic),
@@ -109,7 +151,6 @@ class FileJsonScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    onTap: () {},
                   );
                 },
               ),

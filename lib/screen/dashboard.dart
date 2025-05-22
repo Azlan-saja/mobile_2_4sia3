@@ -92,7 +92,7 @@ class _DashboardState extends State<Dashboard> {
             ),
             ListTile(
               leading: const Icon(Icons.file_copy),
-              title: const Text('JSON File'),
+              title: const Text('Read JSON File'),
               onTap: () {
                 Navigator.push(
                   context,
