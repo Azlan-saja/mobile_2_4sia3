@@ -14,6 +14,29 @@ class _FileJsonScreenState extends State<FileJsonScreen> {
   final jamController = TextEditingController();
   final pelajaranController = TextEditingController();
   List<Map<String, dynamic>> roster = [];
+  bool isUpdate = false;
+  int idUpdate = 0;
+
+  updateRoster() {
+    for (var rst in roster) {
+      if (rst['id'] == idUpdate) {
+        rst['jam'] = jamController.text;
+        rst['pelajaran'] = pelajaranController.text;
+        break;
+      }
+    }
+
+    jamController.clear();
+    pelajaranController.clear();
+    isUpdate = false;
+    idUpdate = 0;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Simpan perubahan berhasil'),
+      ),
+    );
+    setState(() {});
+  }
 
   readRoster() async {
     final isiFile = await rootBundle.loadString("assets/roster.json");
@@ -35,6 +58,12 @@ class _FileJsonScreenState extends State<FileJsonScreen> {
         content: Text('Simpan berhasil'),
       ),
     );
+  }
+
+  deleteRoster(dynamic id) {
+    roster.removeWhere((key) => key['id'] == id);
+    // roster.removeAt(id);
+    setState(() {});
   }
 
   @override
@@ -96,10 +125,20 @@ class _FileJsonScreenState extends State<FileJsonScreen> {
               children: [
                 ElevatedButton(
                     onPressed: () {
-                      createRoster();
+                      isUpdate ? updateRoster() : createRoster();
                     },
-                    child: const Text('Simpan')),
-                ElevatedButton(onPressed: () {}, child: const Text('Batal')),
+                    child: isUpdate
+                        ? const Text('Simpan Perubahan')
+                        : const Text('Simpan')),
+                ElevatedButton(
+                    onPressed: () {
+                      jamController.clear();
+                      pelajaranController.clear();
+                      isUpdate = false;
+                      idUpdate = 0;
+                      setState(() {});
+                    },
+                    child: const Text('Batal')),
               ],
             ),
             Divider(
@@ -135,19 +174,32 @@ class _FileJsonScreenState extends State<FileJsonScreen> {
                           color: Theme.of(context).appBarTheme.backgroundColor,
                           fontStyle: FontStyle.italic),
                     ),
-                    trailing: const Row(
+                    trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.edit,
-                          size: 30,
-                          color: Colors.green,
+                        InkWell(
+                          onTap: () {
+                            idUpdate = roster[index]["id"];
+                            jamController.text = roster[index]["jam"];
+                            pelajaranController.text =
+                                roster[index]["pelajaran"];
+                            isUpdate = true;
+                            setState(() {});
+                          },
+                          child: const Icon(
+                            Icons.edit,
+                            size: 30,
+                            color: Colors.green,
+                          ),
                         ),
-                        SizedBox(width: 8),
-                        Icon(
-                          Icons.delete,
-                          size: 30,
-                          color: Colors.red,
+                        const SizedBox(width: 8),
+                        InkWell(
+                          onTap: () => deleteRoster(roster[index]["id"]),
+                          child: const Icon(
+                            Icons.delete,
+                            size: 30,
+                            color: Colors.red,
+                          ),
                         ),
                       ],
                     ),
